@@ -417,6 +417,32 @@
      (10 font-lock-constant-face t)
      (11 font-lock-keyword-face t))
     
+    ;; EROSION_CYCLE_COUNT token
+    ("\\(\\[\\)\\(EROSION_CYCLE_COUNT\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; RIVER_MINS token
+    ("\\(\\[\\)\\(RIVER_MINS\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t)
+     (6 font-lock-constant-face t)
+     (7 font-lock-keyword-face t))
+    
+    ;; CAVERN_LAYER_COUNT token
+    ("\\(\\[\\)\\(CAVERN_LAYER_COUNT\\)\\(:\\)\\(0\\|1\\|2\\|3\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
