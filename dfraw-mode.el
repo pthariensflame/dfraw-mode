@@ -6,12 +6,24 @@
 ;;; game.
 
 ;;; Code:
-(defvar dfraw-font-lock-exocomment-header
-  '(("\\`[^[:space:]]+$" (0 font-lock-preprocessor-face t))
+(defgroup dfraw nil
+  "Customization group for dfraw-mode."
+  :group 'languages
+  :tag "DF Raw")
+
+(defcustom dfraw-header-face
+  font-lock-preprocessor-face
+  "The font-lock face used for the file header."
+  :tag "Header Face"
+  :type 'face
+  :group 'dfraw)
+
+(defconst dfraw-font-lock-exocomment-header
+  '(("\\`[^[:space:]]+$" (0 dfraw-header-face t))
     ("[^][]+" (0 font-lock-comment-face keep)))
   "Font-lock matchers for \"exocomments\" and the file header in Dwarf Fortress \"raw\" files.")
 
-(defvar dfraw-font-lock-basic
+(defconst dfraw-font-lock-basic
   '(("\\(\\[\\)\\([A-Z0-9_]+\\)"
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
@@ -26,7 +38,7 @@
     ("\\]" (0 font-lock-keyword-face t)))
   "Basic font-lock matchers for Dwarf Fortress \"raw\" files.")
 
-(defvar dfraw-font-lock-token-specific
+(defconst dfraw-font-lock-token-specific
   `(
 
     ;;; top level tokens
@@ -325,7 +337,8 @@
 	  "REGIONAL_INTERACTION_NUMBER"
 	  "DISTURBANCE_INTERACTION_NUMBER"
 	  "EVIL_CLOUD_NUMBER"
-	  "EVIL_RAIN_NUMBER"))
+	  "EVIL_RAIN_NUMBER"
+	  "TOTAL_CIV_NUMBER"))
        "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
@@ -443,14 +456,80 @@
      (4 font-lock-builtin-face t)
      (5 font-lock-keyword-face t))
     
+    ;; PERIODICALLY_ERODE_EXTREMES token
+    ("\\(\\[\\)\\(PERIODICALLY_ERODE_EXTREMES\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; OROGRAPHIC_PRECIPITATION token
+    ("\\(\\[\\)\\(OROGRAPHIC_PRECIPITATION\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; HAVE_BOTTOM_LAYER_* tokens
+    ("\\(\\[\\)\\(HAVE_BOTTOM_LAYER_\\(?:1\\|2\\)\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; depth tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("LEVELS_ABOVE_GROUND"
+	  "LEVELS_ABOVE_LAYER_1"
+	  "LEVELS_ABOVE_LAYER_2"
+	  "LEVELS_ABOVE_LAYER_3"
+	  "LEVELS_ABOVE_LAYER_4"
+	  "LEVELS_ABOVE_LAYER_5"
+	  "LEVELS_AT_BOTTOM"))
+       "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; ALL_CAVES_VISIBLE token
+    ("\\(\\[\\)\\(ALL_CAVES_VISIBLE\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; SHOW_EMBARK_TUNNEL token
+    ("\\(\\[\\)\\(SHOW_EMBARK_TUNNEL\\)\\(:\\)\\(0\\|1\\|2\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; PLAYABLE_CIVILIZATION_REQUIRED token
+    ("\\(\\[\\)\\(PLAYABLE_CIVILIZATION_REQUIRED\\)\\(:\\)\\(0\\|1\\|2\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
-(defvar dfraw-font-lock-level1 (append dfraw-font-lock-exocomment-header
+(defconst dfraw-font-lock-level1 (append dfraw-font-lock-exocomment-header
 				       dfraw-font-lock-basic)
   "Font-lock level 1 for Dwarf Fortress \"raw\" files.")
 
-(defvar dfraw-font-lock-level2 (append dfraw-font-lock-level1
+(defconst dfraw-font-lock-level2 (append dfraw-font-lock-level1
 				       dfraw-font-lock-token-specific)
   "Font-lock level 2 for Dwarf Fortress \"raw\" files.")
 
