@@ -232,14 +232,14 @@
     
     ;; terrain tokens
     (,(concat "\\(\\[\\)\\("
-       (regexp-opt
-	'("ELEVATION"
-	  "RAINFALL"
-	  "TEMPERATURE"
-	  "DRAINAGE"
-	  "VOLCANISM"
-	  "SAVAGERY"))
-       "\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+	      (regexp-opt
+	       '("ELEVATION"
+		 "RAINFALL"
+		 "TEMPERATURE"
+		 "DRAINAGE"
+		 "VOLCANISM"
+		 "SAVAGERY"))
+	      "\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
      (3 font-lock-keyword-face t)
@@ -254,14 +254,14 @@
     
     ;; mesh tokens
     (,(concat "\\(\\[\\)\\("
-       (regexp-opt
-	'("ELEVATION_FREQUENCY"
-	  "RAIN_FREQUENCY"
-	  "DRAINAGE_FREQUENCY"
-	  "TEMPERATURE_FREQUENCY"
-	  "SAVAGERY_FREQUENCY"
-	  "VOLCANISM_FREQUENCY"))
-       "\\)\\(:\\)\\(1\\|2\\|3\\|4\\|5\\|6\\|\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+	      (regexp-opt
+	       '("ELEVATION_FREQUENCY"
+		 "RAIN_FREQUENCY"
+		 "DRAINAGE_FREQUENCY"
+		 "TEMPERATURE_FREQUENCY"
+		 "SAVAGERY_FREQUENCY"
+		 "VOLCANISM_FREQUENCY"))
+	      "\\)\\(:\\)\\(1\\|2\\|3\\|4\\|5\\|6\\|\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
      (3 font-lock-keyword-face t)
@@ -390,6 +390,32 @@
      (3 font-lock-keyword-face t)
      (4 font-lock-constant-face t)
      (5 font-lock-keyword-face t))
+    
+    ;; REGION_COUNTS token
+    (,(concat
+       "\\(\\[\\)\\(REGION_COUNTS\\)\\(:\\)\\("
+       (regexp-opt
+	'("SWAMP"
+	  "DESERT"
+	  "FOREST"
+	  "MOUNTAINS"
+	  "OCEAN"
+	  "GLACIER"
+	  "TUNDRA"
+	  "GRASSLAND"
+	  "HILLS"))
+       "\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t)
+     (6 font-lock-constant-face t)
+     (7 font-lock-keyword-face t)
+     (8 font-lock-constant-face t)
+     (9 font-lock-keyword-face t)
+     (10 font-lock-constant-face t)
+     (11 font-lock-keyword-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
