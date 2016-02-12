@@ -9,7 +9,8 @@
 (defgroup dfraw nil
   "Customization group for dfraw-mode."
   :group 'languages
-  :tag "DF Raw")
+  :tag "DF Raw"
+  :prefix "dfraw-")
 
 (defcustom dfraw-header-face
   font-lock-preprocessor-face
@@ -18,24 +19,115 @@
   :type 'face
   :group 'dfraw)
 
+(defcustom dfraw-exocomment-face
+  font-lock-comment-face
+  "The font-lock face used for \"exocomments\"."
+  :tag "Exocomment Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-brackets-face
+  font-lock-keyword-face
+  "The font-lock face used for square brackets."
+  :tag "Brackets Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-colon-face
+  dfraw-brackets-face
+  "The font-lock face used for colons."
+  :tag "Colon Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-token-face
+  font-lock-builtin-face
+  "The font-lock face used for general tokens."
+  :tag "Token Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-object-face
+  dfraw-token-face
+  "The font-lock face used for the OBJECT token."
+  :tag "Object Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-string-face
+  font-lock-string-face
+  "The font-lock face used for string parameters."
+  :tag "String Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-unknown-face
+  dfraw-string-face
+  "The font-lock face used for otherwise unidentified parameters."
+  :tag "Unknown Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-value-face
+  font-lock-constant-face
+  "The font-lock face used for value parameters."
+  :tag "Value Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-objecttype-face
+  dfraw-token-face
+  "The font-lock face used for type parameters."
+  :tag "Object-Type Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-typetoken-face
+  dfraw-token-face
+  "The font-lock face used for type tokens."
+  :tag "Type-Token Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-exactstring-face
+  font-lock-builtin-face
+  "The font-lock face used for string-like exact parameters."
+  :tag "Exact-String Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-exactvalue-face
+  font-lock-builtin-face
+  "The font-lock face used for value-like exact parameters."
+  :tag "Exact-Value Face"
+  :type 'face
+  :group 'dfraw)
+
+(defcustom dfraw-exactvalue-face
+  font-lock-builtin-face
+  "The font-lock face used for value-like exact parameters."
+  :tag "Exact-Value Face"
+  :type 'face
+  :group 'dfraw)
+
 (defconst dfraw-font-lock-exocomment-header
   '(("\\`[^[:space:]]+$" (0 dfraw-header-face t))
-    ("[^][]+" (0 font-lock-comment-face keep)))
+    ("[^][]+" (0 dfraw-exocomment-face keep)))
   "Font-lock matchers for \"exocomments\" and the file header in Dwarf Fortress \"raw\" files.")
 
 (defconst dfraw-font-lock-basic
   '(("\\(\\[\\)\\([A-Z0-9_]+\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
      ("\\(:\\)\\([^][:]*\\)"
       (save-excursion
 	(if (re-search-forward "\\]" (line-end-position) t)
             (point)
           nil))
       nil
-      (1 font-lock-keyword-face t)
-      (2 font-lock-string-face t)))
-    ("\\]" (0 font-lock-keyword-face t)))
+      (1 dfraw-colon-face t)
+      (2 dfraw-unknown-face t)))
+    ("\\]" (0 dfraw-brackets-face t)))
   "Basic font-lock matchers for Dwarf Fortress \"raw\" files.")
 
 (defconst dfraw-font-lock-token-specific
@@ -66,11 +158,11 @@
 	  "REACTION"
 	  "TISSUE_TEMPLATE"))
        "\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-type-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-object-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-objecttype-face t)
+     (5 dfraw-brackets-face t))
     
     ;; type tokens
     (,(concat
@@ -110,137 +202,137 @@
 	  "REACTION"
 	  "TISSUE_TEMPLATE"))
        "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-typetoken-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-function-name-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;;; AMMO subtokens
     
     ;; NAME token
     ("\\(\\[\\)\\(NAME\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-string-face t)
-     (5 font-lock-keyword-face t)
+     (5 dfraw-colon-face t)
      (6 font-lock-string-face t)
-     (7 font-lock-keyword-face t))
+     (7 dfraw-brackets-face t))
     
     ;; CLASS token
     ("\\(\\[\\)\\(CLASS\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-function-name-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; SIZE/WEIGHT token
     ("\\(\\[\\)\\(SIZE\\|WEIGHT\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; ATTACK token
     ("\\(\\[\\)\\(ATTACK\\)\\(:\\)\\(BLUNT\\|EDGE\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t)
-     (8 font-lock-constant-face t)
-     (9 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-token-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-colon-face t)
      (10 font-lock-string-face t)
-     (11 font-lock-keyword-face t)
+     (11 dfraw-colon-face t)
      (12 font-lock-string-face t)
-     (13 font-lock-keyword-face t)
+     (13 dfraw-colon-face t)
      (14 font-lock-string-face t)
-     (15 font-lock-keyword-face t)
-     (16 font-lock-constant-face t)
-     (17 font-lock-keyword-face t))
+     (15 dfraw-colon-face t)
+     (16 dfraw-value-face t)
+     (17 dfraw-brackets-face t))
     
     ;; ATTACK_PREPARE_AND_RECOVER token
     ("\\(\\[\\)\\(ATTACK_PREPARE_AND_RECOVER\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-brackets-face t))
 
     ;;; world generation tokens
     
     ;; WORLD_GEN token
     ("\\(\\[\\)\\(WORLD_GEN\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-brackets-face t))
     
     ;; TITLE token
     ("\\(\\[\\)\\(TITLE\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-string-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; DIM token
     ("\\(\\[\\)\\(DIM\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-brackets-face t))
     
     ;; EMBARK_POINTS token
     ("\\(\\[\\)\\(EMBARK_POINTS\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; END_YEAR token
     ("\\(\\[\\)\\(END_YEAR\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; BEAST_END_YEAR token
     ("\\(\\[\\)\\(BEAST_END_YEAR\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\(-1\\|[0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-brackets-face t))
     
     ;; REVEAL_ALL_HISTORY token
     ("\\(\\[\\)\\(REVEAL_ALL_HISTORY\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; CULL_HISTORICAL_FIGURES token
     ("\\(\\[\\)\\(CULL_HISTORICAL_FIGURES\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; terrain tokens
     (,(concat "\\(\\[\\)\\("
@@ -252,17 +344,17 @@
 		 "VOLCANISM"
 		 "SAVAGERY"))
 	      "\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t)
-     (8 font-lock-constant-face t)
-     (9 font-lock-keyword-face t)
-     (10 font-lock-constant-face t)
-     (11 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-colon-face t)
+     (10 dfraw-value-face t)
+     (11 dfraw-brackets-face t))
     
     ;; mesh tokens
     (,(concat "\\(\\[\\)\\("
@@ -274,21 +366,21 @@
 		 "SAVAGERY_FREQUENCY"
 		 "VOLCANISM_FREQUENCY"))
 	      "\\)\\(:\\)\\(1\\|2\\|3\\|4\\|5\\|6\\|\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t)
-     (8 font-lock-constant-face t)
-     (9 font-lock-keyword-face t)
-     (10 font-lock-constant-face t)
-     (11 font-lock-keyword-face t)
-     (12 font-lock-constant-face t)
-     (13 font-lock-keyword-face t)
-     (14 font-lock-constant-face t)
-     (15 font-lock-keyword-face t))
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-colon-face t)
+     (10 dfraw-value-face t)
+     (11 dfraw-colon-face t)
+     (12 dfraw-value-face t)
+     (13 dfraw-colon-face t)
+     (14 dfraw-value-face t)
+     (15 dfraw-brackets-face t))
 
     ;; POLE token
     (,(concat
@@ -301,27 +393,27 @@
 	  "SOUTH"
 	  "NORTH_AND_SOUTH"))
        "\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; MINERAL_SCARCITY token
     ("\\(\\[\\)\\(MINERAL_SCARCITY\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; MEGABEAST_CAP and SEMIMEGABEAST_CAP tokens
     ("\\(\\[\\)\\(\\(?:SEMI\\)?MEGABEAST_CAP\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; *_NUMBER tokens
     (,(concat
@@ -340,43 +432,43 @@
 	  "EVIL_RAIN_NUMBER"
 	  "TOTAL_CIV_NUMBER"))
        "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; TITAN_ATTACK_TRIGGER token
     ("\\(\\[\\)\\(TITAN_ATTACK_TRIGGER\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t)
-     (8 font-lock-constant-face t)
-     (9 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-brackets-face t))
     
     ;; GOOD_SQ_COUNTS and EVIL_SQ_COUNTS tokens
     ("\\(\\[\\)\\(?:\\(GOOD\\|EVIL\\)_SQ_COUNTS\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t)
-     (8 font-lock-constant-face t)
-     (9 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-brackets-face t))
     
     ;; GENERATE_DIVINE_MATERIALS token
     ("\\(\\[\\)\\(GENERATE_DIVINE_MATERIALS\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; *_MIN, *_MAX, *_MIN_SIZE, and *_MAX_SIZE tokens
     (,(concat
@@ -398,11 +490,11 @@
 	  "NON_MOUNTAIN_CAVE_MIN"
 	  "SUBREGION_MAX"))
        "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; REGION_COUNTS token
     (,(concat
@@ -418,67 +510,67 @@
 	  "GRASSLAND"
 	  "HILLS"))
        "\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t)
-     (8 font-lock-constant-face t)
-     (9 font-lock-keyword-face t)
-     (10 font-lock-constant-face t)
-     (11 font-lock-keyword-face t))
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-colon-face t)
+     (10 dfraw-value-face t)
+     (11 dfraw-brackets-face t))
     
     ;; EROSION_CYCLE_COUNT token
     ("\\(\\[\\)\\(EROSION_CYCLE_COUNT\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; RIVER_MINS token
     ("\\(\\[\\)\\(RIVER_MINS\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t)
-     (6 font-lock-constant-face t)
-     (7 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-brackets-face t))
     
     ;; CAVERN_LAYER_COUNT token
     ("\\(\\[\\)\\(CAVERN_LAYER_COUNT\\)\\(:\\)\\(0\\|1\\|2\\|3\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; PERIODICALLY_ERODE_EXTREMES token
     ("\\(\\[\\)\\(PERIODICALLY_ERODE_EXTREMES\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; OROGRAPHIC_PRECIPITATION token
     ("\\(\\[\\)\\(OROGRAPHIC_PRECIPITATION\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; HAVE_BOTTOM_LAYER_* tokens
     ("\\(\\[\\)\\(HAVE_BOTTOM_LAYER_\\(?:1\\|2\\)\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; depth tokens
     (,(concat
@@ -492,45 +584,69 @@
 	  "LEVELS_ABOVE_LAYER_5"
 	  "LEVELS_AT_BOTTOM"))
        "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
-     (4 font-lock-constant-face t)
-     (5 font-lock-keyword-face t))
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
     
     ;; ALL_CAVES_VISIBLE token
     ("\\(\\[\\)\\(ALL_CAVES_VISIBLE\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; SHOW_EMBARK_TUNNEL token
     ("\\(\\[\\)\\(SHOW_EMBARK_TUNNEL\\)\\(:\\)\\(0\\|1\\|2\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
     
     ;; PLAYABLE_CIVILIZATION_REQUIRED token
     ("\\(\\[\\)\\(PLAYABLE_CIVILIZATION_REQUIRED\\)\\(:\\)\\(0\\|1\\|2\\)\\(\\]\\)"
-     (1 font-lock-keyword-face t)
-     (2 font-lock-builtin-face t)
-     (3 font-lock-keyword-face t)
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
      (4 font-lock-builtin-face t)
-     (5 font-lock-keyword-face t))
+     (5 dfraw-brackets-face t))
+    
+    ;; TOTAL_CIV_POPULATION token
+    ("\\(\\[\\)\\(TOTAL_CIV_POPULATION\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
+    
+    ;; SITE_CAP token
+    ("\\(\\[\\)\\(SITE_CAP\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-brackets-face t))
+    
+    ;; REVEAL_ALL_HISTORY token
+    ("\\(\\[\\)\\(REVEAL_ALL_HISTORY\\)\\(:\\)\\(0\\|1\\|2\\)\\(\\]\\)"
+     (1 dfraw-brackets-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 font-lock-builtin-face t)
+     (5 dfraw-brackets-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
 (defconst dfraw-font-lock-level1 (append dfraw-font-lock-exocomment-header
-				       dfraw-font-lock-basic)
+					 dfraw-font-lock-basic)
   "Font-lock level 1 for Dwarf Fortress \"raw\" files.")
 
 (defconst dfraw-font-lock-level2 (append dfraw-font-lock-level1
-				       dfraw-font-lock-token-specific)
+					 dfraw-font-lock-token-specific)
   "Font-lock level 2 for Dwarf Fortress \"raw\" files.")
 
 ;;;###autoload
