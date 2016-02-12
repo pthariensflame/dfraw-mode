@@ -28,6 +28,8 @@
 
 (defvar dfraw-font-lock-token-specific
   `(
+
+    ;;; top level tokens
     
     ;; OBJECT token
     (,(concat
@@ -102,6 +104,8 @@
      (4 font-lock-function-name-face t)
      (5 font-lock-keyword-face t))
     
+    ;;; AMMO subtokens
+    
     ;; NAME token
     ("\\(\\[\\)\\(NAME\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
      (1 font-lock-keyword-face t)
@@ -157,6 +161,8 @@
      (5 font-lock-keyword-face t)
      (6 font-lock-constant-face t)
      (7 font-lock-keyword-face t))
+
+    ;;; world generation tokens
     
     ;; WORLD_GEN token
     ("\\(\\[\\)\\(WORLD_GEN\\)\\(\\]\\)"
@@ -338,6 +344,52 @@
      (7 font-lock-keyword-face t)
      (8 font-lock-constant-face t)
      (9 font-lock-keyword-face t))
+    
+    ;; GOOD_SQ_COUNTS and EVIL_SQ_COUNTS tokens
+    ("\\(\\[\\)\\(?:\\(GOOD\\|EVIL\\)_SQ_COUNTS\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t)
+     (6 font-lock-constant-face t)
+     (7 font-lock-keyword-face t)
+     (8 font-lock-constant-face t)
+     (9 font-lock-keyword-face t))
+    
+    ;; GENERATE_DIVINE_MATERIALS token
+    ("\\(\\[\\)\\(GENERATE_DIVINE_MATERIALS\\)\\(:\\)\\(0\\|1\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-builtin-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; *_MIN, *_MAX, *_MIN_SIZE, and *_MAX_SIZE tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("PEAK_NUMBER_MIN"
+	  "PARTIAL_OCEAN_EDGE_MIN"
+	  "COMPLETE_OCEAN_EDGE_MIN"
+	  "VOLCANO_MIN"
+	  "CAVERN_LAYER_OPENNESS_MIN"
+	  "CAVERN_LAYER_OPENNESS_MAX"
+	  "CAVERN_LAYER_PASSAGE_DENSITY_MIN"
+	  "CAVERN_LAYER_PASSAGE_DENSITY_MAX"
+	  "CAVERN_LAYER_WATER_MIN"
+	  "CAVERN_LAYER_WATER_MAX"
+	  "CAVE_MIN_SIZE"
+	  "CAVE_MAX_SIZE"
+	  "MOUNTAIN_CAVE_MIN"
+	  "NON_MOUNTAIN_CAVE_MIN"
+	  "SUBREGION_MAX"))
+       "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
