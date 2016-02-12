@@ -297,6 +297,44 @@
      (4 font-lock-constant-face t)
      (5 font-lock-keyword-face t))
     
+    ;; MEGABEAST_CAP and SEMIMEGABEAST_CAP tokens
+    ("\\(\\[\\)\\(\\(?:SEMI\\)?MEGABEAST_CAP\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; *_NUMBER tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("TITAN"
+	  "DEMON"
+	  "NIGHT_TROLL"
+	  "BOGEYMAN"
+	  "VAMPIRE"
+	  "WEREBEAST"
+	  "SECRET"))
+       "_NUMBER\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t))
+    
+    ;; TITAN_ATTACK_TRIGGER token
+    ("\\(\\[\\)\\(TITAN_ATTACK_TRIGGER\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 font-lock-keyword-face t)
+     (2 font-lock-builtin-face t)
+     (3 font-lock-keyword-face t)
+     (4 font-lock-constant-face t)
+     (5 font-lock-keyword-face t)
+     (6 font-lock-constant-face t)
+     (7 font-lock-keyword-face t)
+     (8 font-lock-constant-face t)
+     (9 font-lock-keyword-face t))
+    
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
