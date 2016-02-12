@@ -214,64 +214,6 @@
      (3 dfraw-colon-face t)
      (4 dfraw-objectidentifier-face t)
      (5 dfraw-bracket-face t))
-    
-    ;;; AMMO subtokens
-    
-    ;; NAME token
-    ("\\(\\[\\)\\(NAME\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
-     (1 dfraw-bracket-face t)
-     (2 dfraw-token-face t)
-     (3 dfraw-colon-face t)
-     (4 dfraw-string-face t)
-     (5 dfraw-colon-face t)
-     (6 dfraw-string-face t)
-     (7 dfraw-bracket-face t))
-    
-    ;; CLASS token
-    ("\\(\\[\\)\\(CLASS\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
-     (1 dfraw-bracket-face t)
-     (2 dfraw-token-face t)
-     (3 dfraw-colon-face t)
-     (4 dfraw-identifier-face t)
-     (5 dfraw-bracket-face t))
-    
-    ;; SIZE and WEIGHT tokens
-    ("\\(\\[\\)\\(SIZE\\|WEIGHT\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 dfraw-bracket-face t)
-     (2 dfraw-token-face t)
-     (3 dfraw-colon-face t)
-     (4 dfraw-value-face t)
-     (5 dfraw-bracket-face t))
-    
-    ;; ATTACK token
-    ("\\(\\[\\)\\(ATTACK\\)\\(:\\)\\(BLUNT\\|EDGE\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 dfraw-bracket-face t)
-     (2 dfraw-token-face t)
-     (3 dfraw-colon-face t)
-     (4 dfraw-token-face t)
-     (5 dfraw-colon-face t)
-     (6 dfraw-value-face t)
-     (7 dfraw-colon-face t)
-     (8 dfraw-value-face t)
-     (9 dfraw-colon-face t)
-     (10 dfraw-string-face t)
-     (11 dfraw-colon-face t)
-     (12 dfraw-string-face t)
-     (13 dfraw-colon-face t)
-     (14 dfraw-string-face t)
-     (15 dfraw-colon-face t)
-     (16 dfraw-value-face t)
-     (17 dfraw-bracket-face t))
-    
-    ;; ATTACK_PREPARE_AND_RECOVER token
-    ("\\(\\[\\)\\(ATTACK_PREPARE_AND_RECOVER\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
-     (1 dfraw-bracket-face t)
-     (2 dfraw-token-face t)
-     (3 dfraw-colon-face t)
-     (4 dfraw-value-face t)
-     (5 dfraw-colon-face t)
-     (6 dfraw-value-face t)
-     (7 dfraw-bracket-face t))
 
     ;;; world generation tokens
     
@@ -664,6 +606,64 @@
      (7 dfraw-colon-face t)
      (8 dfraw-value-face t)
      (9 dfraw-bracket-face t))
+    
+    ;;; AMMO subtokens
+    
+    ;; NAME token
+    ("\\(\\[\\)\\(NAME\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-string-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-string-face t)
+     (7 dfraw-bracket-face t))
+    
+    ;; CLASS token
+    ("\\(\\[\\)\\(CLASS\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-identifier-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; SIZE and WEIGHT tokens
+    ("\\(\\[\\)\\(SIZE\\|WEIGHT\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; ATTACK token
+    ("\\(\\[\\)\\(ATTACK\\)\\(:\\)\\(BLUNT\\|EDGE\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-token-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-colon-face t)
+     (10 dfraw-string-face t)
+     (11 dfraw-colon-face t)
+     (12 dfraw-string-face t)
+     (13 dfraw-colon-face t)
+     (14 dfraw-string-face t)
+     (15 dfraw-colon-face t)
+     (16 dfraw-value-face t)
+     (17 dfraw-bracket-face t))
+    
+    ;; ATTACK_PREPARE_AND_RECOVER token
+    ("\\(\\[\\)\\(ATTACK_PREPARE_AND_RECOVER\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
+     (7 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
