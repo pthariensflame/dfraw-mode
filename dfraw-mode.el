@@ -12,7 +12,7 @@
   "Font-lock matchers for \"exocomments\" and the file header in Dwarf Fortress \"raw\" files.")
 
 (defvar dfraw-font-lock-basic
-  '(("\\(\\[\\)\\([A-Z_]+\\)"
+  '(("\\(\\[\\)\\([A-Z0-9_]+\\)"
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
      ("\\(:\\)\\([^][:]*\\)"
@@ -95,7 +95,7 @@
 	  "PLANT"
 	  "REACTION"
 	  "TISSUE_TEMPLATE"))
-       "\\)\\(:\\)\\([A-Z_]+\\)\\(\\]\\)")
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)")
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
      (3 font-lock-keyword-face t)
@@ -113,7 +113,7 @@
      (7 font-lock-keyword-face t))
     
     ;; CLASS token
-    ("\\(\\[\\)\\(CLASS\\)\\(:\\)\\([A-Z_]+\\)\\(\\]\\)"
+    ("\\(\\[\\)\\(CLASS\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
      (3 font-lock-keyword-face t)
@@ -309,14 +309,18 @@
     (,(concat
        "\\(\\[\\)\\("
        (regexp-opt
-	'("TITAN"
-	  "DEMON"
-	  "NIGHT_TROLL"
-	  "BOGEYMAN"
-	  "VAMPIRE"
-	  "WEREBEAST"
-	  "SECRET"))
-       "_NUMBER\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+	'("TITAN_NUMBER"
+	  "DEMON_NUMBER"
+	  "NIGHT_TROLL_NUMBER"
+	  "BOGEYMAN_NUMBER"
+	  "VAMPIRE_NUMBER"
+	  "WEREBEAST_NUMBER"
+	  "SECRET_NUMBER"
+	  "REGIONAL_INTERACTION_NUMBER"
+	  "DISTURBANCE_INTERACTION_NUMBER"
+	  "EVIL_CLOUD_NUMBER"
+	  "EVIL_RAIN_NUMBER"))
+       "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
      (1 font-lock-keyword-face t)
      (2 font-lock-builtin-face t)
      (3 font-lock-keyword-face t)
