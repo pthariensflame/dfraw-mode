@@ -689,78 +689,164 @@
      (6 dfraw-identifier-face t)
      (7 dfraw-bracket-face t))
 
-    ;; BP_LAYERS* tokens
+    ;; this needs more work:
+    
+    ;; ;; BP_LAYERS* tokens
+    ;; (,(concat
+    ;;    "\\(\\[\\)\\("
+    ;;    (regexp-opt
+    ;; 	'("BP_LAYERS"
+    ;; 	  "BP_LAYERS_OVER"
+    ;; 	  "BP_LAYERS_UNDER"))
+    ;;    "\\)")
+    ;;  (1 dfraw-bracket-face t)
+    ;;  (2 dfraw-token-face t)
+    ;;  (,(concat
+    ;; 	"\\(:\\)\\("
+    ;; 	(regexp-opt
+    ;; 	 '("BY_CATEGORY"
+    ;; 	   "BY_TYPE"
+    ;; 	   "BY_TOKEN"))
+    ;; 	"\\)\\(:\\)\\([A-Z0-9_]+\\)")
+    ;;   (save-excursion
+    ;; 	(if (re-search-forward "\\]" (line-end-position) nil)
+    ;;         (point)
+    ;;       nil))
+    ;;   nil
+    ;;   (1 dfraw-colon-face t)
+    ;;   (2 dfraw-exactstring-face t)
+    ;;   (3 dfraw-colon-face t)
+    ;;   (4 dfraw-identifier-face t)
+    ;;   (,(concat
+    ;; 	 "\\(:\\)\\("
+    ;; 	 (regexp-opt
+    ;; 	  '("FRONT"
+    ;; 	    "BACK"
+    ;; 	    "LEFT"
+    ;; 	    "RIGHT"
+    ;; 	    "TOP"
+    ;; 	    "BOTTOM"
+    ;; 	    "SIDES"))
+    ;; 	 "\\)")
+    ;;    (save-excursion
+    ;; 	 (if (re-search-forward "\\]" (line-end-position) nil)
+    ;; 	     (point)
+    ;; 	   nil))
+    ;;    nil
+    ;;    (1 dfraw-colon-face t)
+    ;;    (2 dfraw-exactstring-face t))
+    ;;   (,(concat
+    ;; 	 "\\(:\\)\\("
+    ;; 	 (regexp-opt
+    ;; 	  '("AROUND"
+    ;; 	    "SURROUNDED_BY"
+    ;; 	    "ABOVE"
+    ;; 	    "BELOW"
+    ;; 	    "IN_FRONT"
+    ;; 	    "BEHIND"
+    ;; 	    "CLEANS"
+    ;; 	    "CLEANED_BY"))
+    ;; 	 "\\)\\(:\\)\\("
+    ;; 	 (regexp-opt
+    ;; 	  '("BY_CATEGORY"
+    ;; 	   "BY_TYPE"
+    ;; 	   "BY_TOKEN"))
+    ;; 	 "\\)\\(:\\)\\([A-Z0-9_]+\\)")
+    ;;    (save-excursion
+    ;; 	 (if (re-search-forward "\\]" (line-end-position) nil)
+    ;; 	     (point)
+    ;; 	   nil))
+    ;;    nil
+    ;;    (1 dfraw-colon-face t)
+    ;;    (2 dfraw-exactstring-face t)
+    ;;    (3 dfraw-colon-face t)
+    ;;    (4 dfraw-exactstring-face t)
+    ;;    (5 dfraw-colon-face t)
+    ;;    (6 dfraw-identifier-face t)))) ; closing bracket handled implicitly
+
+    ;; BP_POSITION token
     (,(concat
-       "\\(\\[\\)\\("
+       "\\(\\[\\)\\(BP_POSITION\\)\\(:\\)\\("
        (regexp-opt
-	'("BP_LAYERS"
-	  "BP_LAYERS_OVER"
-	  "BP_LAYERS_UNDER"))
-       "\\)")
+	'("BY_CATEGORY"
+	  "BY_TYPE"
+	  "BY_TOKEN"))
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\("
+       (regexp-opt
+	'("FRONT"
+	  "BACK"
+	  "LEFT"
+	  "RIGHT"
+	  "TOP"
+	  "BOTTOM"
+	  "SIDES"))
+       "\\)\\(\\]\\)")
      (1 dfraw-bracket-face t)
      (2 dfraw-token-face t)
-     (,(concat
-	"\\(:\\)\\("
-	(regexp-opt
-	 '("BY_CATEGORY"
-	   "BY_TYPE"
-	   "BY_TOKEN"))
-	"\\)\\(:\\)\\([A-Z0-9_]+\\)")
-      (save-excursion
-	(if (re-search-forward "\\]" (line-end-position) t)
-            (point)
-          nil))
-      nil
-      (1 dfraw-colon-face t)
-      (2 dfraw-exactstring-face t)
-      (3 dfraw-colon-face t)
-      (4 dfraw-identifier-face t)
-      (,(concat
-	 "\\(:\\)\\("
-	 (regexp-opt
-	  '("FRONT"
-	    "BACK"
-	    "LEFT"
-	    "RIGHT"
-	    "TOP"
-	    "BOTTOM"
-	    "SIDES"))
-	 "\\)")
-       (save-excursion
-	 (if (re-search-forward "\\]" (line-end-position) t)
-	     (point)
-	   nil))
-       nil
-       (1 dfraw-colon-face t)
-       (2 dfraw-exactstring-face t))
-      (,(concat
-	 "\\(:\\)\\("
-	 (regexp-opt
-	  '("AROUND"
-	    "SURROUNDED_BY"
-	    "ABOVE"
-	    "BELOW"
-	    "IN_FRONT"
-	    "BEHIND"
-	    "CLEANS"
-	    "CLEANED_BY"))
-	 "\\)\\(:\\)\\("
-	 (regexp-opt
-	  '("BY_CATEGORY"
-	   "BY_TYPE"
-	   "BY_TOKEN"))
-	 "\\)\\(:\\)\\([A-Z0-9_]+\\)")
-       (save-excursion
-	 (if (re-search-forward "\\]" (line-end-position) t)
-	     (point)
-	   nil))
-       nil
-       (1 dfraw-colon-face t)
-       (2 dfraw-exactstring-face t)
-       (3 dfraw-colon-face t)
-       (4 dfraw-exactstring-face t)
-       (5 dfraw-colon-face t)
-       (6 dfraw-identifier-face t)))) ; closing bracket handled implicitly
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-identifier-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-exactstring-face t)
+     (9 dfraw-bracket-face t))
+    
+    ;; BP_RELATION token
+    (,(concat
+       "\\(\\[\\)\\(BP_RELATION\\)\\(:\\)\\("
+       (regexp-opt
+	'("BY_CATEGORY"
+	  "BY_TYPE"
+	  "BY_TOKEN"))
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\("
+       (regexp-opt
+	'("AROUND"
+	  "SURROUNDED_BY"
+	  "ABOVE"
+	  "BELOW"
+	  "IN_FRONT"
+	  "BEHIND"
+	  "CLEANS"
+	  "CLEANED_BY"))
+       "\\)\\(:\\)\\("
+       (regexp-opt
+	'("BY_CATEGORY"
+	  "BY_TYPE"
+	  "BY_TOKEN"))
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-identifier-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-exactstring-face t)
+     (9 dfraw-colon-face t)
+     (10 dfraw-exactstring-face t)
+     (11 dfraw-colon-face t)
+     (12 dfraw-identifier-face t)
+     (13 dfraw-colon-face t)
+     (14 dfraw-value-face t)
+     (15 dfraw-bracket-face t))
+
+    ;; BP_RELSIZE token
+    (,(concat
+       "\\(\\[\\)\\(BP_RELSIZE\\)\\(:\\)\\("
+       (regexp-opt
+	'("BY_CATEGORY"
+	  "BY_TYPE"
+	  "BY_TOKEN"))
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-identifier-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-value-face t)
+     (9 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
@@ -775,7 +861,7 @@
 
 ;;;###autoload
 (define-derived-mode dfraw-mode
-  fundamental-mode "DFRaw"
+  fundamental-mode "DF Raw"
   "Major mode for working with Dwarf Fortress \"raw\" files"
   (setq-local font-lock-defaults '((dfraw-font-lock-level1
 				    dfraw-font-lock-level2)
