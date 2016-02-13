@@ -1,7 +1,7 @@
 ;;; dfraw-mode.el --- Dwarf Fortress "raw" file major mode.
 ;;; Author: Alexander Altman <alexanderaltman@me.com>
 ;;; Version: 0.0.1
-;;; Keywords: dwarf fortress, raw
+;;; Keywords: languages
 ;;; Commentary:
 ;;; A major mode for editing Dwarf Fortress's "raw" files, which are often
 ;;; used for modding and which specify various things not built in to the
@@ -11,7 +11,7 @@
 (defgroup dfraw nil
   "Customization group for dfraw-mode."
   :group 'languages
-  :tag "DF Raw"
+  :tag "DFRaw"
   :prefix "dfraw-")
 
 (defcustom dfraw-header-face
@@ -863,8 +863,8 @@
 
 ;;;###autoload
 (define-derived-mode dfraw-mode
-  fundamental-mode "DF Raw"
-  "Major mode for working with Dwarf Fortress \"raw\" files"
+  fundamental-mode "DFRaw"
+  "Major mode for working with Dwarf Fortress \"raw\" files."
   (setq-local font-lock-defaults '((dfraw-font-lock-level1
 				    dfraw-font-lock-level2)
 				   t)))
