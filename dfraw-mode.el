@@ -978,6 +978,116 @@
      (11 dfraw-colon-face t)
      (12 dfraw-string-face t)
      (13 dfraw-bracket-face t))
+
+    ;;; ARMOR subtokens
+
+    ;; NAME token is already covered by AMMO
+    
+    ;; ARMORLEVEL token
+    ("\\(\\[\\)\\(ARMORLEVEL\\)\\(:\\)\\(0\\|1\\|2\\|3\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactvalue-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; MATERIAL_SIZE token
+    ("\\(\\[\\)\\(MATERIAL_SIZE\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; nullary tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("METAL_ARMOR_LEVELS"
+	  "CHAIN_METAL_TEXT"
+	  "SOFT"
+	  "HARD"
+	  "METAL"
+	  "BARRED"
+	  "SCALED"
+	  "LEATHER"
+	  "SHAPED"
+	  "STRUCTURAL_ELASTICITY_CHAIN_ALL"
+	  "STRUCTURAL_ELASTICITY_CHAIN_METAL"
+	  "STRUCTURAL_ELASTICITY_WOVEN_THREAD"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-bracket-face t))
+    
+    ;; VALUE token
+    ("\\(\\[\\)\\(VALUE\\)\\(:\\)\\(-?[0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; PREPLURAL and MATERIAL_PLACEHOLDER tokens
+    ("\\(\\[\\)\\(PREPLURAL\\|MATERIAL_PLACEHOLDER\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-string-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; *STEP tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("UPSTEP"
+	  "UBSTEP"
+	  "LBSTEP"))
+       "\\)\\(:\\)\\(MAX\\|[0-9]+\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; LAYER_* tokens
+    ("\\(\\[\\)\\(LAYER_\\(?:SIZE\\|PERMIT\\)\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; LAYER token
+    (,(concat
+       "\\(\\[\\)\\(LAYER\\)\\(:\\)\\("
+       (regexp-opt
+	'("UNDER"
+	  "OVER"
+	  "ARMOR"
+	  "COVER"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; BLOCKCHANCE token
+    ("\\(\\[\\)\\(BLOCKCHANCE\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; COVERAGE token
+    ("\\(\\[\\)\\(COVERAGE\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
