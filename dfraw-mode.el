@@ -1091,7 +1091,7 @@
     
     ;;; TOOL subtokens
 
-    ;; NAME and ATTACK tokens are already covered by AMMO
+    ;; NAME, ATTACK, and ATTACK_PREPARE_AND_RECOVER tokens are already covered by AMMO
     ;; VALUE, MATERIAL_SIZE, SIZE, and WEIGHT tokens are already covered by ARMOR
     
     ;; nullary tokens
@@ -1116,11 +1116,276 @@
 	  "UNIMPROVABLE"
 	  "INVERTED_TILE"
 	  "NO_DEFAULT_JOB"
-	  "FURNITURE"))
+	  "FURNITURE"
+	  "NO_DEFAULT_IMPROVEMENTS"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-tagtoken-face t)
+     (3 dfraw-bracket-face t))
+    
+    ;; unary tokens with a value argument
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("TILE"
+	  "CONTAINER_CAPACITY"
+	  "SHOOT_FORCE"
+	  "SHOOT_MAXVEL"
+	  "TWO_HANDED"
+	  "MINIMUM_SIZE"))
+       "\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; unary tokens with a string argument
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("DESCRIPTION"
+	  "ADJECTIVE"))
+       "\\)\\(:\\)\\(.+?\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-string-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; DEFAULT_IMPROVEMENT token (form 1)
+    (,(concat
+       "\\(\\[\\)\\(DEFAULT_IMPROVEMENT\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\("
+       (regexp-opt
+	'("BONE_MAT"
+	  "CERAMIC_MAT"
+	  "GLASS_MAT"
+	  "HARD_MAT"
+	  "LEATHER_MAT"
+	  "METAL_MAT"
+	  "METAL_WEAPON_MAT"
+	  "SHEET_MAT"
+	  "SHELL_MAT"
+	  "SILK_MAT"
+	  "SOFT_MAT"
+	  "STONE_MAT"
+	  "THREAD_PLANT_MAT"
+	  "WOOD_MAT"))
        "\\)\\(\\]\\)")
      (1 dfraw-bracket-face t)
      (2 dfraw-token-face t)
-     (3 dfraw-bracket-face t))
+     (3 dfraw-colon-face t)
+     (4 dfraw-identifier-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-tagtoken-face t)
+     (7 dfraw-bracket-face t))
+    
+    ;; DEFAULT_IMPROVEMENT token (form 2)
+    (,(concat
+       "\\(\\[\\)\\(DEFAULT_IMPROVEMENT\\)\\(:\\)\\(SPECIFIC\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\("
+       (regexp-opt
+	'("BONE_MAT"
+	  "CERAMIC_MAT"
+	  "GLASS_MAT"
+	  "HARD_MAT"
+	  "LEATHER_MAT"
+	  "METAL_MAT"
+	  "METAL_WEAPON_MAT"
+	  "SHEET_MAT"
+	  "SHELL_MAT"
+	  "SILK_MAT"
+	  "SOFT_MAT"
+	  "STONE_MAT"
+	  "THREAD_PLANT_MAT"
+	  "WOOD_MAT"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-exactstring-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-tagtoken-face t)
+     (9 dfraw-bracket-face t))
+    
+    ;; TOOL_USE token
+    (,(concat
+       "\\(\\[\\)\\(TOOL_USE\\)\\(:\\)\\("
+       (regexp-opt
+	'("LIQUID_COOKING"
+	  "LIQUID_SCOOP"
+	  "GRIND_POWDER_RECEPTACLE"
+	  "GRIND_POWDER_GRINDER"
+	  "MEAT_CARVING"
+	  "MEAT_BONING"
+	  "MEAT_SLICING"
+	  "MEAT_CLEAVING"
+	  "HOLD_MEAT_FOR_CARVING"
+	  "MEAL_CONTAINER"
+	  "NEST_BOX"
+	  "LIQUID_CONTAINER"
+	  "FOOD_STORAGE"
+	  "HIVE"
+	  "SMALL_OBJECT_STORAGE"
+	  "TRACK_CART"
+	  "HEAVY_OBJECT_HAULING"
+	  "STAND_AND_WORK_ABOVE"
+	  "ROLL_UP_SHEET"
+	  "PROTECT_FOLDED_SHEETS"
+	  "CONTAIN_WRITING"
+	  "BOOKCASE"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; SKILL token
+    (,(concat
+       "\\(\\[\\)\\(SKILL\\)\\(:\\)\\("
+       (regexp-opt
+	'("MINING"
+	  "WOODCUTTING"
+	  "CARPENTRY"
+	  "DETAILSTONE"
+	  "MASONRY"
+	  "ANIMALTRAIN"
+	  "ANIMALCARE"
+	  "DISSECT_FISH"
+	  "PROCESSFISH"
+	  "BUTCHER"
+	  "TRAPPING"
+	  "TANNER"
+	  "WEAVING"
+	  "BREWING"
+	  "ALCHEMY"
+	  "CLOTHESMAKING"
+	  "MILLING"
+	  "PROCESSPLANTS"
+	  "CHEESEMAKING"
+	  "MILK"
+	  "COOK"
+	  "PLANT"
+	  "HERBALISM"
+	  "FISH"
+	  "SMELT"
+	  "EXTRACT_STRAND"
+	  "FORGE_WEAPON"
+	  "FORGE_ARMOR"
+	  "FORGE_FURNITURE"
+	  "CUTGEM"
+	  "ENCRUSTGEM"
+	  "WOODCRAFT"
+	  "STONECRAFT"
+	  "METALCRAFT"
+	  "GLASSMAKER"
+	  "LEATHERWORK"
+	  "BONECARVE"
+	  "AXE"
+	  "SWORD"
+	  "DAGGER"
+	  "MACE"
+	  "HAMMER"
+	  "SPEAR"
+	  "CROSSBOW"
+	  "SHIELD"
+	  "ARMOR"
+	  "SIEGECRAFT"
+	  "SIEGEOPERATE"
+	  "BOWYER"
+	  "PIKE"
+	  "WHIP"
+	  "BOW"
+	  "BLOWGUN"
+	  "THROW"
+	  "MECHANICS"
+	  "MAGIC_NATURE"
+	  "SNEAK"
+	  "DESIGNBUILDING"
+	  "DRESS_WOUNDS"
+	  "DIAGNOSE"
+	  "SURGERY"
+	  "SET_BONE"
+	  "SUTURE"
+	  "CRUTCH_WALK"
+	  "WOOD_BURNING"
+	  "LYE_MAKING"
+	  "SOAP_MAKING"
+	  "POTASH_MAKING"
+	  "DYER"
+	  "OPERATE_PUMP"
+	  "SWIMMING"
+	  "PERSUASION"
+	  "NEGOTIATION"
+	  "JUDGING_INTENT"
+	  "APPRAISAL"
+	  "ORGANIZATION"
+	  "RECORD_KEEPING"
+	  "LYING"
+	  "INTIMIDATION"
+	  "CONVERSATION"
+	  "COMEDY"
+	  "FLATTERY"
+	  "CONSOLE"
+	  "PACIFY"
+	  "TRACKING"
+	  "KNOWLEDGE_ACQUISITION"
+	  "CONCENTRATION"
+	  "DISCIPLINE"
+	  "SITUATIONAL_AWARENESS"
+	  "WRITING"
+	  "PROSE"
+	  "POETRY"
+	  "READING"
+	  "SPEAKING"
+	  "COORDINATION"
+	  "BALANCE"
+	  "LEADERSHIP"
+	  "TEACHING"
+	  "MELEE_COMBAT"
+	  "RANGED_COMBAT"
+	  "WRESTLING"
+	  "BITE"
+	  "GRASP_STRIKE"
+	  "STANCE_STRIKE"
+	  "DODGING"
+	  "MISC_WEAPON"
+	  "KNAPPING"
+	  "MILITARY_TACTICS"
+	  "SHEARING"
+	  "SPINNING"
+	  "POTTERY"
+	  "GLAZING"
+	  "PRESSING"
+	  "BEEKEEPING"
+	  "WAX_WORKING"
+	  "CLIMBING"
+	  "GELD"
+	  "DANCE"
+	  "MAKE_MUSIC"
+	  "SING"
+	  "PLAY_KEYBOARD_INSTRUMENT"
+	  "PLAY_STRINGED_INSTRUMENT"
+	  "PLAY_WIND_INSTRUMENT"
+	  "PLAY_PERCUSSION_INSTRUMENT"
+	  "CRITICAL_THINKING"
+	  "LOGIC"
+	  "MATHEMATICS"
+	  "ASTRONOMY"
+	  "CHEMISTRY"
+	  "GEOGRAPHY"
+	  "OPTICS_ENGINEER"
+	  "FLUID_ENGINEER"
+	  "PAPERMAKING"
+	  "BOOKBINDING"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
+     (5 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
