@@ -1093,8 +1093,34 @@
 
     ;; NAME and ATTACK tokens are already covered by AMMO
     ;; VALUE, MATERIAL_SIZE, SIZE, and WEIGHT tokens are already covered by ARMOR
-
     
+    ;; nullary tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("BONE_MAT"
+	  "CERAMIC_MAT"
+	  "GLASS_MAT"
+	  "HARD_MAT"
+	  "LEATHER_MAT"
+	  "METAL_MAT"
+	  "METAL_WEAPON_MAT"
+	  "SHEET_MAT"
+	  "SHELL_MAT"
+	  "SILK_MAT"
+	  "SOFT_MAT"
+	  "STONE_MAT"
+	  "THREAD_PLANT_MAT"
+	  "WOOD_MAT"
+	  "INCOMPLETE_ITEM"
+	  "UNIMPROVABLE"
+	  "INVERTED_TILE"
+	  "NO_DEFAULT_JOB"
+	  "FURNITURE"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
