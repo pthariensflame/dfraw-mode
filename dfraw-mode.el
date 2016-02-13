@@ -945,6 +945,40 @@
      (4 dfraw-value-face t)
      (5 dfraw-bracket-face t))
     
+    ;; INDIVIDUAL_NAME token
+    ("\\(\\[\\)\\(INDIVIDUAL_NAME\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-string-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-string-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; NUMBER token
+    ("\\(\\[\\)\\(NUMBER\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; BODYGLOSS token
+    ("\\(\\[\\)\\(BODYGLOSS\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-identifier-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-string-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-string-face t)
+     (9 dfraw-colon-face t)
+     (10 dfraw-string-face t)
+     (11 dfraw-colon-face t)
+     (12 dfraw-string-face t)
+     (13 dfraw-bracket-face t))
+    
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
