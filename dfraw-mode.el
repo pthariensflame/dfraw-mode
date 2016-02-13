@@ -14,11 +14,7 @@
   "Customization group for dfraw-mode."
   :group 'languages
   :tag "DFRaw"
-  "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
-
-(defconst dfraw-font-lock-level1 (append dfraw-font-lock-exocomment-header
-					 dfraw-font-lock-basic)
-  "Font-lock level 1 for Dwarf Fortress \"raw\" files.")
+  "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files."
   :prefix "dfraw-")
 
 (defcustom dfraw-header-face
