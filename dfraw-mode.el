@@ -905,12 +905,34 @@
      (8 dfraw-string-face t)
      (9 dfraw-bracket-face t))
     
-    ;; CATEGORY token
-    ("\\(\\[\\)\\(CATEGORY\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
+    ;; CATEGORY, CON, and CON_CAT tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("CATEGORY"
+	  "CON"
+	  "CON_CAT"))
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)")
      (1 dfraw-bracket-face t)
      (2 dfraw-token-face t)
      (3 dfraw-colon-face t)
      (4 dfraw-identifier-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; CONTYPE token
+    (,(concat
+       "\\(\\[\\)\\(CONTYPE\\)\\(:\\)\\("
+       (regexp-opt
+	'("UPPERBODY"
+	  "LOWERBODY"
+	  "HEAD"
+	  "GRASP"
+	  "STANCE"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-exactstring-face t)
      (5 dfraw-bracket-face t))
     
     )
