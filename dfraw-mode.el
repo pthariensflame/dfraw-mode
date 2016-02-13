@@ -1,6 +1,7 @@
 ;;; dfraw-mode.el --- Dwarf Fortress "raw" file major mode.
 ;;; Author: Alexander Altman <alexanderaltman@me.com>
 ;;; Version: 0.0.1
+;;; Homepage: https://github.com/pthariensflame/dfraw-mode
 ;;; Keywords: languages
 ;;; Commentary:
 ;;; A major mode for editing Dwarf Fortress's "raw" files, which are often
@@ -934,6 +935,14 @@
      (3 dfraw-colon-face t)
      (4 dfraw-exactstring-face t)
      (5 dfraw-bracket-face t))
+    
+    ;; DEFAULT_RELSIZE token
+    ("\\(\\[\\)\\(DEFAULT_RELSIZE\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (9 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
