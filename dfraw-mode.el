@@ -691,7 +691,7 @@
      (6 dfraw-identifier-face t)
      (7 dfraw-bracket-face t))
 
-    ;; this needs more work:
+    ;; TODO: the following needs more work
     
     ;; ;; BP_LAYERS* tokens
     ;; (,(concat
@@ -892,6 +892,18 @@
      (1 dfraw-bracket-face t)
      (2 dfraw-tagtoken-face t)
      (3 dfraw-bracket-face t))
+    
+    ;; BP token
+    ("\\(\\[\\)\\(BP\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\(.+?\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-identifier-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-string-face t)
+     (7 dfraw-colon-face t)
+     (8 dfraw-string-face t)
+     (9 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
