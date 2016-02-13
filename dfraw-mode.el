@@ -1089,6 +1089,13 @@
      (4 dfraw-value-face t)
      (5 dfraw-bracket-face t))
     
+    ;;; TOOL subtokens
+
+    ;; NAME and ATTACK tokens are already covered by AMMO
+    ;; VALUE, MATERIAL_SIZE, SIZE, and WEIGHT tokens are already covered by ARMOR
+
+    
+    
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
