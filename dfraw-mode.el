@@ -849,6 +849,49 @@
      (7 dfraw-colon-face t)
      (8 dfraw-value-face t)
      (9 dfraw-bracket-face t))
+
+    ;;; BODY subtokens
+    
+    ;; nullary tag tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("APERTURE"
+	  "BREATHE"
+	  "CIRCULATION"
+	  "CONNECTOR"
+	  "DIGIT"
+	  "EMBEDDED"
+	  "FLIER"
+	  "GRASP"
+	  "GUTS"
+	  "HEAD"
+	  "HEAR"
+	  "INTERNAL"
+	  "JOINT"
+	  "LIMB"
+	  "LOWERBODY"
+	  "LEFT"
+	  "MOUTH"
+	  "NERVOUS"
+	  "PREVENTS_PARENT_COLLAPSE"
+	  "RIGHT"
+	  "SKELETON"
+	  "STANCE"
+	  "SIGHT"
+	  "SMELL"
+	  "SMALL"
+	  "SOCKET"
+	  "THROAT"
+	  "THOUGHT"
+	  "TOTEMABLE"
+	  "UPPERBODY"
+	  "UNDER_PRESSURE"
+	  "VERMIN_BUTCHER_ITEM"))
+       "\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-tagtoken-face t)
+     (3 dfraw-bracket-face t))
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
