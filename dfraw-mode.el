@@ -3,6 +3,7 @@
 ;;; Version: 0.0.1
 ;;; Homepage: https://github.com/pthariensflame/dfraw-mode
 ;;; Keywords: languages
+
 ;;; Commentary:
 ;;; A major mode for editing Dwarf Fortress's "raw" files, which are often
 ;;; used for modding and which specify various things not built in to the
@@ -13,6 +14,11 @@
   "Customization group for dfraw-mode."
   :group 'languages
   :tag "DFRaw"
+  "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
+
+(defconst dfraw-font-lock-level1 (append dfraw-font-lock-exocomment-header
+					 dfraw-font-lock-basic)
+  "Font-lock level 1 for Dwarf Fortress \"raw\" files.")
   :prefix "dfraw-")
 
 (defcustom dfraw-header-face
@@ -964,4 +970,5 @@
 				   t)))
 
 (provide 'dfraw-mode)
+
 ;;; dfraw-mode.el ends here
