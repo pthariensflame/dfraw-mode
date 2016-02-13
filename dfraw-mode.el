@@ -905,6 +905,14 @@
      (8 dfraw-string-face t)
      (9 dfraw-bracket-face t))
     
+    ;; CATEGORY token
+    ("\\(\\[\\)\\(CATEGORY\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-identifier-face t)
+     (5 dfraw-bracket-face t))
+    
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
 
