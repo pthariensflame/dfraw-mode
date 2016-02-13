@@ -89,6 +89,13 @@
   :type 'face
   :group 'dfraw)
 
+(defcustom dfraw-tagtoken-face
+  dfraw-token-face
+  "The font-lock face used for nullary tokens that act like tags or flags."
+  :tag "Tag-Token Face"
+  :type 'face
+  :group 'dfraw)
+
 (defcustom dfraw-exactstring-face
   font-lock-builtin-face
   "The font-lock face used for string-like exact parameters."
@@ -664,6 +671,96 @@
      (5 dfraw-colon-face t)
      (6 dfraw-value-face t)
      (7 dfraw-bracket-face t))
+
+    ;;; BODY_DETAIL_PLAN subtokens
+
+    ;; ADD_* tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("ADD_MATERIAL"
+	  "ADD_TISSUE"))
+       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-identifier-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-identifier-face t)
+     (7 dfraw-bracket-face t))
+
+    ;; BP_LAYERS* tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("BP_LAYERS"
+	  "BP_LAYERS_OVER"
+	  "BP_LAYERS_UNDER"))
+       "\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (,(concat
+	"\\(:\\)\\("
+	(regexp-opt
+	 '("BY_CATEGORY"
+	   "BY_TYPE"
+	   "BY_TOKEN"))
+	"\\)\\(:\\)\\([A-Z0-9_]+\\)")
+      (save-excursion
+	(if (re-search-forward "\\]" (line-end-position) t)
+            (point)
+          nil))
+      nil
+      (1 dfraw-colon-face t)
+      (2 dfraw-exactstring-face t)
+      (3 dfraw-colon-face t)
+      (4 dfraw-identifier-face t)
+      (,(concat
+	 "\\(:\\)\\("
+	 (regexp-opt
+	  '("FRONT"
+	    "BACK"
+	    "LEFT"
+	    "RIGHT"
+	    "TOP"
+	    "BOTTOM"
+	    "SIDES"))
+	 "\\)")
+       (save-excursion
+	 (if (re-search-forward "\\]" (line-end-position) t)
+	     (point)
+	   nil))
+       nil
+       (1 dfraw-colon-face t)
+       (2 dfraw-exactstring-face t))
+      (,(concat
+	 "\\(:\\)\\("
+	 (regexp-opt
+	  '("AROUND"
+	    "SURROUNDED_BY"
+	    "ABOVE"
+	    "BELOW"
+	    "IN_FRONT"
+	    "BEHIND"
+	    "CLEANS"
+	    "CLEANED_BY"))
+	 "\\)\\(:\\)\\("
+	 (regexp-opt
+	  '("BY_CATEGORY"
+	   "BY_TYPE"
+	   "BY_TOKEN"))
+	 "\\)\\(:\\)\\([A-Z0-9_]+\\)")
+       (save-excursion
+	 (if (re-search-forward "\\]" (line-end-position) t)
+	     (point)
+	   nil))
+       nil
+       (1 dfraw-colon-face t)
+       (2 dfraw-exactstring-face t)
+       (3 dfraw-colon-face t)
+       (4 dfraw-exactstring-face t)
+       (5 dfraw-colon-face t)
+       (6 dfraw-identifier-face t)))) ; closing bracket handled implicitly
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
