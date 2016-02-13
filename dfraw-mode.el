@@ -363,7 +363,7 @@
      (4 dfraw-value-face t)
      (5 dfraw-bracket-face t))
     
-    ;; MEGABEAST_CAP and SEMIMEGABEAST_CAP tokens
+    ;; *MEGABEAST_CAP tokens
     ("\\(\\[\\)\\(\\(?:SEMI\\)?MEGABEAST_CAP\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)"
      (1 dfraw-bracket-face t)
      (2 dfraw-token-face t)
