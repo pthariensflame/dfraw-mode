@@ -1,6 +1,6 @@
 ;;; dfraw-mode.el --- Dwarf Fortress "raw" file major mode.
 ;;; Author: Alexander Altman <alexanderaltman@me.com>
-;;; Version: 0.0.1
+;;; Version: 0.0.2
 ;;; Homepage: https://github.com/pthariensflame/dfraw-mode
 ;;; Keywords: languages
 
@@ -1573,6 +1573,10 @@
      (5 dfraw-colon-face t)
      (6 dfraw-value-face t)
      (7 dfraw-bracket-face t))
+
+    ;; TODO: the graphics specifier tokens
+
+    
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
