@@ -226,7 +226,7 @@
 	  "PLANT"
 	  "REACTION"
 	  "TISSUE_TEMPLATE"))
-       "\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)")
+       "\\)\\(:\\)\\(\\(?:[A-Z0-9_,\\-]\\| \\)+\\)\\(\\]\\)")
      (1 dfraw-bracket-face t)
      (2 dfraw-typetoken-face t)
      (3 dfraw-colon-face t)
@@ -1576,7 +1576,7 @@
 
     ;; TODO: the graphics specifier tokens
 
-    
+    ;;; 
     
     )
   "Token-specific font-lock matchers for Dwarf Fortress \"raw\" files.")
