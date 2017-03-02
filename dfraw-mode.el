@@ -65,6 +65,13 @@
   :type 'face
   :group 'dfraw)
 
+(defcustom dfraw-file-path-face
+  dfraw-string-face
+  "The font-lock face used for file path parameters."
+  :tag "File Path Face"
+  :type 'face
+  :group 'dfraw)
+
 (defcustom dfraw-unknown-face
   dfraw-string-face
   "The font-lock face used for otherwise unidentified parameters."
@@ -1532,6 +1539,39 @@
      (4 dfraw-exactstring-face t)
      (5 dfraw-colon-face t)
      (6 dfraw-identifier-face t)
+     (7 dfraw-bracket-face t))
+
+    ;;; GRAPHICS subtokens
+    
+    ;; TILE_PAGE token
+    ("\\(\\[\\)\\(TILE_PAGE\\)\\(:\\)\\([A-Z0-9_]+\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-objectidentifier-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; FILE token
+    ("\\(\\[\\)\\(FILE\\)\\(:\\)\\(.+?\\)\\(\\]\\)"
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-file-path-face t)
+     (5 dfraw-bracket-face t))
+    
+    ;; *_DIM tokens
+    (,(concat
+       "\\(\\[\\)\\("
+       (regexp-opt
+	'("TILE_DIM"
+	  "PAGE_DIM"))
+       "\\)\\(:\\)\\([0-9]+\\)\\(:\\)\\([0-9]+\\)\\(\\]\\)")
+     (1 dfraw-bracket-face t)
+     (2 dfraw-token-face t)
+     (3 dfraw-colon-face t)
+     (4 dfraw-value-face t)
+     (5 dfraw-colon-face t)
+     (6 dfraw-value-face t)
      (7 dfraw-bracket-face t))
     
     )
